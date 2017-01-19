@@ -1,4 +1,5 @@
 #!/bin/sh
+
 if [ "$1" == "--help" ]; then
 	echo "gpush -- push repo changes to origin"
 	echo "usage: gpush {address}" 
@@ -6,9 +7,22 @@ if [ "$1" == "--help" ]; then
 	echo "     the remote, and subsequenly just gpush (with no address) to push changes."
 	exit
 fi
+
 # TODO: Verify that the local copy is up to date with the origin. If not the
 # user should do a gpull and resolve any conflicts before trying gpush again.
 # (There's no need to do this if the origin has been established yet.)
-git add .
-git commit
-git push
+
+if !(git add .); then
+    echo "'git add' failed."
+    exit 1
+fi
+
+if !(git commit); then
+    echo "'git commit' failed."
+    exit 1
+fi
+
+if !(git push origin master); then
+    echo "'git push' failed."
+    exit 1
+fi

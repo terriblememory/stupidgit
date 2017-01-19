@@ -11,6 +11,12 @@ ADDRESS=$1
 
 # TODO: Verify that this isn't already an initialized repo.
 
+if (git rev-parse); then
+    echo "This is already a git repository. Maybe you meant gpull/gpush?"
+    exit 1
+    # TODO: Maybe check that the origin has been set up and help with that if not?
+fi
+
 if !(git init); then
     echo "'git init' failed."
     exit 1
