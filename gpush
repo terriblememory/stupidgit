@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ "$1" == "--help" ]; then
+	echo "gpush -- push repo changes to origin"
+	echo "usage: gpush {address}" 
+	echo "e.g. gpush https://github.com/terriblememory/stupidgit.git to establish"
+	echo "     the remote, and subsequenly just gpush (with no address) to push changes."
+	exit
+fi
+# TODO: Verify that the local copy is up to date with the origin. If not the
+# user should do a gpull and resolve any conflicts before trying gpush again.
+# (There's no need to do this if the origin has been established yet.)
+git add .
+git commit
+git push

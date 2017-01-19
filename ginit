@@ -1,0 +1,37 @@
+#!/bin/sh
+
+if [ "$#" != 1 ] || [ "$1" == "--help" ]; then
+	echo "ginit -- create a local repo and set its origin."
+	echo "usage: ginit [address]" 
+	echo "e.g. ginit https://github.com/terriblememory/stupidgit.git"
+    exit 1
+fi
+
+ADDRESS=$1
+
+# TODO: Verify that this isn't already an initialized repo.
+
+if !(git init); then
+    echo "'git init' failed."
+    exit 1
+fi
+
+if !(git add .); then
+    echo "'git add' failed."
+    exit 1
+fi
+
+if !(git commit -m "Initial commit."); then
+    echo "'git commit' failed."
+    exit 1
+fi
+
+if !(git remote add origin $ADDRESS); then
+    echo "'git remote' failed."
+    exit 1
+fi
+
+if !(git push -u origin master); then
+    echo "'git push' failed."
+    exit 1
+fi

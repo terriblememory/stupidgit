@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ "$#" == 0 ]; then
+	echo "gspull -- pull subtree updates from subtree origin."
+	echo "usage: gspull subname" 
+	echo "e.g. gspull stupidgit"
+	exit
+fi
+SUBNAME=$1
+git subtree pull --prefix=$SUBNAME --squash $SUBNAME master
+

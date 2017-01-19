@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$1" == "--help" ]; then
+	echo "gpull -- pull repo changes from origin."
+	echo "usage: gpull" 
+	echo "e.g. gpull"
+	exit
+fi
+git pull

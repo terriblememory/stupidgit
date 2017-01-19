@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ "$#" == 0 ]; then
+	echo "gsadd -- add a new subtree to a repository."
+	echo "usage: gsadd [subname] [address]" 
+	echo "e.g. gsadd stupidgit https://github.com/terriblememory/stupidgit"
+	exit
+fi
+SUBNAME=$1
+ADDRESS=$2
+git remote add $SUBNAME $ADDRESS
+git subtree add --prefix=$SUBNAME --squash $SUBNAME master
+
