@@ -1,8 +1,12 @@
 #!/bin/sh
-if [ "$1" == "--help" ]; then
-	echo "gpull -- pull repo changes from origin."
+
+if [ "$#" != 0 ]; then
+	echo "gpull -- pull repo changes from origin"
 	echo "usage: gpull" 
-	echo "e.g. gpull"
-	exit
+	exit 1
 fi
-git pull
+
+if !(git pull origin master); then
+    echo "'git pull' failed."
+    exit 1
+fi
