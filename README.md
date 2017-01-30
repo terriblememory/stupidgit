@@ -10,6 +10,8 @@ If, like me, you don't know bash, this is the command to add to .bashrc:
 
 ```export PATH="/c/code/stupidgit:$PATH"```
 
+Obviously substitute the actual path in your case.
+
 ## Basics
 
 Note: [repo] is the URL of a repository, e.g. https://github.com/terriblememory/stupidgit.
