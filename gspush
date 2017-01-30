@@ -1,9 +1,17 @@
 #!/bin/sh
+
 if [ "$#" == 0 ]; then
-	echo "gspush -- push subtree changes to subtree origin."
-	echo "usage: gspush subname" 
-	echo "e.g. gspush stupidgit"
+	echo "  gspush -- push subtree changes to subtree origin."
+	echo "  usage: gspush subname" 
+	echo "  e.g. gspush stupidgit"
 	exit
 fi
+
 SUBNAME=$1
-git subtree push --prefix=$SUBNAME --squash $SUBNAME master
+
+if !(git subtree push --prefix=$SUBNAME --squash $SUBNAME master); then
+    echo "ERROR: Unable to pull subtree."
+    exit 1
+fi
+
+echo "Done."

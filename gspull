@@ -1,10 +1,19 @@
 #!/bin/sh
-if [ "$#" == 0 ]; then
-	echo "gspull -- pull subtree updates from subtree origin."
-	echo "usage: gspull subname" 
-	echo "e.g. gspull stupidgit"
-	exit
-fi
-SUBNAME=$1
-git subtree pull --prefix=$SUBNAME --squash $SUBNAME master
 
+if [ "$#" != 1 ] || [ "$1" == "--help" ]; then
+	echo "  gspull -- update a subtree from its remote origin."
+	echo "  usage: gspull [subdir]" 
+    echo "  Run this script from the root directory of the containing repository."
+    echo "  [subdir] is the relative subdirectory of the subtree."
+	echo "  e.g. gspull mylib"
+	exit 1
+fi
+
+SUBDIR=$1
+
+if !(git subtree pull --prefix=$SUBDIR --squash $SUBDIR master); then
+    echo "ERROR: Unable to pull subtree."
+    exit 1
+fi
+
+echo "Done."

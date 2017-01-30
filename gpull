@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ "$#" != 0 ]; then
-	echo "gpull -- pull repo changes from origin"
-	echo "usage: gpull" 
+	echo "  gpull -- pull changes from origin"
+	echo "  usage: gpull" 
 	exit 1
 fi
 
@@ -10,3 +10,5 @@ if !(git pull origin master); then
     echo "'git pull' failed."
     exit 1
 fi
+
+echo "Done."

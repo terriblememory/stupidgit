@@ -1,9 +1,18 @@
 #!/bin/sh
+
 if [ "$#" != 1 ] || [ "$1" == "--help" ]; then
 	echo "gclone -- clone a repo into the current directory."
 	echo "usage: gclone [address]" 
 	echo "e.g. gclone https://github.com/terriblememory/stupidgit.git"
 	exit
 fi
+
 ADDRESS=$1
-git clone $ADDRESS .
+
+echo "Cloning from '$ADDRESS'."
+if !(git clone $ADDRESS .); then
+    echo "ERROR: 'git clone' failed."
+    exit 1
+fi
+
+echo "Done."

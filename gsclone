@@ -1,0 +1,37 @@
+#!/bin/sh
+
+if [ "$#" != 2 ] || [ "$1" == "--help" ]; then
+	echo "  gsclone -- Create a subtree from a remote repository."
+	echo "  Usage: gsclone [subdir] [address]" 
+    echo "  Run this script from the root directory of the containing repo."
+    echo "  [subdir] is a subdirectory to clone the subtree into."
+    echo "  [address] is the URL of the repository to be cloned."
+	echo "  e.g. gsclone mylib http://github.com/terriblememory/mylib.git"
+    echo "  Note that [subdir] is used as the name for the subdirectory and the remote"
+    echo "  origin for the subtree, so it has to be suitable for both uses. This means"
+    echo "  that this script does not support nested subdirectories. So, for example"
+    echo "  'mylib' is ok but 'libs/mylib' is not."
+    echo "  Use gspull to get updates from the subtree's origin."
+    echo "  Use gspush to update the subtree origin with your changes."
+	exit 1
+fi
+
+SUBDIR=$1
+ADDRESS=$2
+
+if [ -d $SUBDIR ]; then
+    echo "ERROR: '$SUBDIR' already exists."
+    exit 1
+fi
+
+if !(git remote add $SUBDIR $ADDRESS); then
+    echo "ERROR: 'git remote add' failed."
+    exit 1
+fi
+
+if !(git subtree add --prefix=$SUBDIR --squash $SUBDIR master); then
+    echo "ERROR: Unable to clone subtree."
+    exit 1
+fi
+
+echo "Done."

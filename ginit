@@ -1,43 +1,56 @@
 #!/bin/sh
 
 if [ "$#" != 1 ] || [ "$1" == "--help" ]; then
-	echo "ginit -- create a local repo and set its origin."
-	echo "usage: ginit [address]" 
-	echo "e.g. ginit https://github.com/terriblememory/stupidgit.git"
+	echo "  ginit -- create  local repo in current directory and set origin remote."
+	echo "  usage: ginit [address]" 
+	echo "  e.g. ginit https://github.com/terriblememory/stupidgit.git"
     exit 1
 fi
 
 ADDRESS=$1
 
-# TODO: Verify that this isn't already an initialized repo.
-
-if (git rev-parse); then
-    echo "This is already a git repository. Maybe you meant gpull/gpush?"
+if (git rev-parse 2>/dev/null); then
+    echo "ERROR: Already a git repository. This script is too dumb to handle that!"
     exit 1
-    # TODO: Maybe check that the origin has been set up and help with that if not?
+fi
+
+echo "Ensuring remote '$ADDRESS' is empty..."
+if (git ls-remote --exit-code $ADDRESS); then
+    echo "ERROR: Remote '$ADDRESS' is NOT empty."
+    exit 1
 fi
 
 if !(git init); then
-    echo "'git init' failed."
+    echo "ERROR: 'git init' failed."
     exit 1
 fi
 
 if !(git add .); then
-    echo "'git add' failed."
+    echo "ERROR: 'git add' failed."
     exit 1
 fi
 
+if [ -z "$(git status --porcelain)" ]; then
+    echo "ERROR: Nothing to commit. Do some work then try again! Removing empty repo."
+    rm -rf .git
+    exit 1
+fi
+
+echo "Performing initial commit to the local repo."
 if !(git commit -m "Initial commit."); then
-    echo "'git commit' failed."
+    echo "ERROR: 'git commit' failed."
     exit 1
 fi
 
 if !(git remote add origin $ADDRESS); then
-    echo "'git remote' failed."
+    echo "ERROR: 'git remote' failed."
     exit 1
 fi
 
+echo "Performing initial push to the remote origin."
 if !(git push -u origin master); then
-    echo "'git push' failed."
+    echo "ERROR: 'git push' failed."
     exit 1
 fi
+
+echo "Done."
