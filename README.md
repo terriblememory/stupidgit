@@ -2,6 +2,14 @@
 
 I am bad at Git. Also bad at bash. So I made some bad bash scripts to make Git easier.
 
+## Installation
+
+These are bash scripts so just clone this repository into a subdirectory and add that directory to your bash path in your .bashrc.
+
+If, like me, you don't know bash, this is the command to add to .bashrc:
+
+```export PATH="/c/code/stupidgit:$PATH"```
+
 ## Basics
 
 Note: [repo] is the URL of a repository, e.g. https://github.com/terriblememory/stupidgit.
