@@ -1,6 +1,6 @@
 # StupidGit
 
-I am bad at Git. Also bad at bash. So I made some bad bash scripts to make Git easier.
+Note that these scripts haven't exactly been tested rigorously. Since I'm bad at Git and bad at Bash you should set your expectations accordingly!
 
 ## Installation
 
