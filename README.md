@@ -1,6 +1,8 @@
 # StupidGit
 
-Note that these scripts haven't exactly been tested rigorously. Since I'm bad at Git and bad at Bash you should set your expectations accordingly!
+Note that these scripts haven't exactly been tested rigorously.
+
+Since I'm bad at Git and bad at Bash you should set your expectations accordingly!
 
 ## Installation
 
@@ -10,7 +12,7 @@ If, like me, you don't know bash, this is the command to add to .bashrc:
 
 ```export PATH="/c/code/stupidgit:$PATH"```
 
-Obviously substitute the actual path in your case.
+Obviously substitute the actual path for your case.
 
 ## Basics
 
